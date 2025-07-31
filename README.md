@@ -1,0 +1,1 @@
+# SaleApp_SlimCare_dotnet_react
