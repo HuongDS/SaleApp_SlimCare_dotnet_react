@@ -1,0 +1,6 @@
+@SlimcareApp_HostAddress = http://localhost:5038
+
+GET {{SlimcareApp_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
