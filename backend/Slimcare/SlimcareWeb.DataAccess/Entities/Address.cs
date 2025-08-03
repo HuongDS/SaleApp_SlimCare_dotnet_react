@@ -14,9 +14,13 @@
         public int Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the User
+        /// Gets or sets the UserID
         /// </summary>
         public int UserID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the User
+        /// </summary>
         public User User { get; set; }
 
         /// <summary>

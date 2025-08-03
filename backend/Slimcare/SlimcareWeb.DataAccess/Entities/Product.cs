@@ -29,11 +29,20 @@
         public string Desciption { get; set; }
 
         /// <summary>
-        /// Gets or sets the Category_Id
+        /// Gets or sets the CategoryId
         /// </summary>
         public int CategoryId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Category
+        /// </summary>
         public Category Category { get; set; }
+
+        /// <summary>
+        /// Gets or sets the OrderDetails
+        /// </summary>
         public List<OrderDetails> OrderDetails { get; set; }
+
         /// <summary>
         /// Gets or sets the Delete_At
         /// </summary>

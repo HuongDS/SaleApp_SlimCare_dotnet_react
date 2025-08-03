@@ -19,7 +19,14 @@
         /// </summary>
         public int UserId { get; set; }
 
+        /// <summary>
+        /// Gets or sets the AddressId
+        /// </summary>
         public int AddressId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Address
+        /// </summary>
         public Address Address { get; set; }
 
         /// <summary>

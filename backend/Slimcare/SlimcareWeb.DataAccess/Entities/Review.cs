@@ -12,9 +12,24 @@
         /// </summary>
         public int Id { get; set; }
 
+        /// <summary>
+        /// Gets or sets the UserId
+        /// </summary>
         public int UserId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the User
+        /// </summary>
         public User User { get; set; }
+
+        /// <summary>
+        /// Gets or sets the ProductId
+        /// </summary>
         public int ProductId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Product
+        /// </summary>
         public Product Product { get; set; }
 
         /// <summary>
