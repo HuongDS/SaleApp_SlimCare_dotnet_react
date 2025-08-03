@@ -1,9 +1,33 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlimcareApp", "SlimcareApp\SlimcareApp.csproj", "{260F77DC-C435-42EE-AE72-F213DD182E91}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlimcareWeb.DataAccess", "SlimcareWeb.DataAccess\SlimcareWeb.DataAccess.csproj", "{D6D78C7F-D948-4B18-B138-CA924B699C62}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlimcareWeb.Service", "SlimcareWeb.Service\SlimcareWeb.Service.csproj", "{A3804EF1-9EBC-44E2-958C-4B7B955DA4B2}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{260F77DC-C435-42EE-AE72-F213DD182E91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{260F77DC-C435-42EE-AE72-F213DD182E91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{260F77DC-C435-42EE-AE72-F213DD182E91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{260F77DC-C435-42EE-AE72-F213DD182E91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6D78C7F-D948-4B18-B138-CA924B699C62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6D78C7F-D948-4B18-B138-CA924B699C62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6D78C7F-D948-4B18-B138-CA924B699C62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6D78C7F-D948-4B18-B138-CA924B699C62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3804EF1-9EBC-44E2-958C-4B7B955DA4B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3804EF1-9EBC-44E2-958C-4B7B955DA4B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3804EF1-9EBC-44E2-958C-4B7B955DA4B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3804EF1-9EBC-44E2-958C-4B7B955DA4B2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
