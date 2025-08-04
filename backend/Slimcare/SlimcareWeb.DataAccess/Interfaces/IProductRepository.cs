@@ -7,7 +7,8 @@ using SlimcareWeb.DataAccess.Entities;
 
 namespace SlimcareWeb.DataAccess.Interface
 {
-    public interface IAddressRepository : IGenericRepository<Address>
+    public interface IProductRepository : IGenericRepository<Product>
     {
+        Task<bool> CheckProductExist(string productName);
     }
 }

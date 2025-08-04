@@ -7,7 +7,8 @@ using SlimcareWeb.DataAccess.Entities;
 
 namespace SlimcareWeb.DataAccess.Interface
 {
-    public interface IProductRepository : IGenericRepository<Product>
+    public interface IAddressRepository : IGenericRepository<Address>
     {
+        Task UpdateAllAddressToNotDefaultAsync(int userId);
     }
 }

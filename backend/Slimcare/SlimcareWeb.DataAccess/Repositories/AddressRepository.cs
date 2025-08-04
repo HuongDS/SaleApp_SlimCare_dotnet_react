@@ -1,5 +1,6 @@
 ﻿namespace SlimcareWeb.DataAccess.Repositories
 {
+    using Microsoft.EntityFrameworkCore;
     using SlimcareWeb.DataAccess.Entities;
     using SlimcareWeb.DataAccess.Interface;
 
@@ -18,6 +19,16 @@
         /// <param name="dbContext">The dbContext<see cref="SlimCareDbContext"/></param>
         public AddressRepository(SlimCareDbContext dbContext) : base(dbContext)
         {
+        }
+
+        public async Task UpdateAllAddressToNotDefaultAsync(int userId)
+        {
+            var addresses = await _dbContext.Addresses.Where(a => a.UserID == userId && a.Is_Default).ToListAsync();
+            foreach (var address in addresses)
+            {
+                address.Is_Default = false;
+                await _dbContext.SaveChangesAsync();
+            }
         }
     }
 }

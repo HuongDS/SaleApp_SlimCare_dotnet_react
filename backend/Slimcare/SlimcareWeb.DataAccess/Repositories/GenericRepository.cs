@@ -26,6 +26,18 @@ namespace SlimcareWeb.DataAccess.Repositories
             return entity.Id;
         }
 
+        public async Task<int> SoftDeleteAsync(int id)
+        {
+            var entity = await GetByIdAsync(id);
+            if (entity == null)
+            {
+                throw new Exception("T not found");
+            }
+            entity.Delete_At = DateTime.UtcNow;
+            _dbSet.Update(entity);
+            await _dbContext.SaveChangesAsync();
+            return id;
+        }
         public async Task<int> DeleteAsync(int id)
         {
             var entity = await GetByIdAsync(id);
@@ -40,12 +52,12 @@ namespace SlimcareWeb.DataAccess.Repositories
 
         public async Task<IEnumerable<T>> GetAllAsync()
         {
-            return await _dbSet.ToListAsync();
+            return await _dbSet.Where(x => x.Delete_At == DateTime.MinValue).ToListAsync();
         }
 
         public async Task<T?> GetByIdAsync(int id)
         {
-            return await _dbSet.FindAsync(id);
+            return await _dbSet.FirstOrDefaultAsync(x => x.Delete_At == DateTime.MinValue && x.Id == id);
         }
 
         public async Task<int> UpdateAsync(T entity)

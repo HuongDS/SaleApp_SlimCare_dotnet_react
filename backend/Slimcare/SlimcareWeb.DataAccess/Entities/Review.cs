@@ -6,7 +6,7 @@
     /// <summary>
     /// Defines the <see cref="Review" />
     /// </summary>
-    public class Review : IEntity
+    public class Review : IEntity, IDelete
     {
         /// <summary>
         /// Gets or sets the Id
@@ -47,6 +47,7 @@
         /// Gets or sets the Review_At
         /// </summary>
         public DateTime Review_At { get; set; } = DateTime.Now;
+        public DateTime Delete_At { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Review"/> class.

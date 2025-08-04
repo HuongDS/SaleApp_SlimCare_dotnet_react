@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SlimcareWeb.DataAccess.Interface
+namespace SlimcareWeb.Service.Interfaces
 {
-    public interface IEntity
+    internal interface IReviewService
     {
-        public int Id { get; set; }
     }
 }

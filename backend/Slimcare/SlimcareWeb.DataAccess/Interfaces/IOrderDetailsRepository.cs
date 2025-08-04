@@ -9,6 +9,9 @@ namespace SlimcareWeb.DataAccess.Interface
 {
     public interface IOrderDetailsRepository : IGenericRepository<OrderDetails>
     {
+        Task<bool> CheckOrderIdExist(int id);
+        Task<bool> CheckProductIdExist(int id);
+        Task<IEnumerable<OrderDetails>> GetAllProductAsync(int id);
         Task<IEnumerable<OrderDetails>> GetOrderDetailsByOrderIdAsync(int orderId);
     }
 }

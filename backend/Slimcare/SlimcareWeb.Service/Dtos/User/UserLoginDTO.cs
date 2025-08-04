@@ -4,17 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SlimcareWeb.Service.DTO
+namespace SlimcareWeb.Service.Dtos.User
 {
     public class UserLoginDTO
     {
-        public string username { get; set; }
-        public string password { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
 
         public UserLoginDTO(string username, string password)
         {
-            this.username = username;
-            this.password = password;
+            this.Username = username;
+            this.Password = password;
         }
     }
 }

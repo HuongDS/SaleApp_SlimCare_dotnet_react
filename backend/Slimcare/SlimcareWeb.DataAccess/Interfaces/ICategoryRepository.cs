@@ -9,6 +9,6 @@ namespace SlimcareWeb.DataAccess.Interface
 {
     public interface ICategoryRepository : IGenericRepository<Category>
     {
-
+        Task<bool> CheckCategoryExist(string categoryName);
     }
 }

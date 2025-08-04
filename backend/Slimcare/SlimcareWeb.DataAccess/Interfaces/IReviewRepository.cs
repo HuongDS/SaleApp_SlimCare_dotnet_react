@@ -9,5 +9,7 @@ namespace SlimcareWeb.DataAccess.Interface
 {
     public interface IReviewRepository : IGenericRepository<Review>
     {
+        Task<bool> CheckProductIdExist(int productId);
+        Task<IEnumerable<Review>> GetAllByProductIdAsync(int productId);
     }
 }
