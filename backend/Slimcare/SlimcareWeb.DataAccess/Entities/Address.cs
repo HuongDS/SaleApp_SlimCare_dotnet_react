@@ -6,7 +6,7 @@
     /// <summary>
     /// Defines the <see cref="Address" />
     /// </summary>
-    public class Address : IDelete
+    public class Address : IEntity, IDelete
     {
         /// <summary>
         /// Gets or sets the Id

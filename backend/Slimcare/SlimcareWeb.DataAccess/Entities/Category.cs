@@ -6,12 +6,12 @@
     /// <summary>
     /// Defines the <see cref="Category" />
     /// </summary>
-    public class Category : IDelete
+    public class Category : IDelete, IEntity
     {
         /// <summary>
         /// Gets or sets the ID
         /// </summary>
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Gets or sets the Name
@@ -44,7 +44,7 @@
         /// <param name="deleteAt">The deleteAt<see cref="DateTime"/></param>
         public Category(int iD, string name, string description, DateTime deleteAt)
         {
-            ID = iD;
+            Id = iD;
             Name = name;
             Description = description;
             Delete_At = deleteAt;

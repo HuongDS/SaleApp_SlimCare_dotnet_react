@@ -1,11 +1,12 @@
 ﻿namespace SlimcareWeb.DataAccess.Entities
 {
     using System;
+    using SlimcareWeb.DataAccess.Interface;
 
     /// <summary>
     /// Defines the <see cref="Review" />
     /// </summary>
-    public class Review
+    public class Review : IEntity
     {
         /// <summary>
         /// Gets or sets the Id

@@ -6,7 +6,7 @@
     /// <summary>
     /// Defines the <see cref="OrderDetails" />
     /// </summary>
-    public class OrderDetails : IDelete
+    public class OrderDetails : IEntity, IDelete
     {
         /// <summary>
         /// Gets or sets the Id

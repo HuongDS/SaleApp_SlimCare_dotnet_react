@@ -7,7 +7,7 @@
     /// <summary>
     /// Defines the <see cref="User" />
     /// </summary>
-    public class User : IDelete
+    public class User : IEntity, IDelete
     {
         /// <summary>
         /// Gets or sets the Id

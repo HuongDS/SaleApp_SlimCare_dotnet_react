@@ -6,7 +6,7 @@
     /// <summary>
     /// Defines the <see cref="Product" />
     /// </summary>
-    public class Product : IDelete
+    public class Product : IEntity, IDelete
     {
         /// <summary>
         /// Gets or sets the Id
@@ -22,6 +22,11 @@
         /// Gets or sets the Price
         /// </summary>
         public double Price { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Stock
+        /// </summary>
+        public int Stock { get; set; }
 
         /// <summary>
         /// Gets or sets the Desciption
@@ -61,16 +66,22 @@
         /// <param name="id">The id<see cref="int"/></param>
         /// <param name="name">The name<see cref="string"/></param>
         /// <param name="price">The price<see cref="double"/></param>
+        /// <param name="stock">The stock<see cref="int"/></param>
         /// <param name="desciption">The desciption<see cref="string"/></param>
-        /// <param name="category_Id">The category_Id<see cref="int"/></param>
+        /// <param name="categoryId">The categoryId<see cref="int"/></param>
+        /// <param name="category">The category<see cref="Category"/></param>
+        /// <param name="orderDetails">The orderDetails<see cref="List{OrderDetails}"/></param>
         /// <param name="delete_At">The delete_At<see cref="DateTime"/></param>
-        public Product(int id, string name, double price, string desciption, int category_Id, DateTime delete_At)
+        public Product(int id, string name, double price, int stock, string desciption, int categoryId, Category category, List<OrderDetails> orderDetails, DateTime delete_At)
         {
             Id = id;
             Name = name;
             Price = price;
+            Stock = stock;
             Desciption = desciption;
-            CategoryId = category_Id;
+            CategoryId = categoryId;
+            Category = category;
+            OrderDetails = orderDetails;
             Delete_At = delete_At;
         }
     }

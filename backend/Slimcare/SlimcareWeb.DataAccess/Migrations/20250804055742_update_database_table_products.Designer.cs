@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SlimcareWeb.DataAccess;
 
@@ -11,9 +12,11 @@ using SlimcareWeb.DataAccess;
 namespace SlimcareWeb.DataAccess.Migrations
 {
     [DbContext(typeof(SlimCareDbContext))]
-    partial class SlimCareDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250804055742_update_database_table_products")]
+    partial class update_database_table_products
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -7,7 +7,7 @@
     /// <summary>
     /// Defines the <see cref="Order" />
     /// </summary>
-    public class Order : IDelete
+    public class Order : IEntity, IDelete
     {
         /// <summary>
         /// Gets or sets the Id
