@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ using SlimcareWeb.Service.Dtos.Order;
 
 namespace SlimcareWeb.Service.Interfaces
 {
-    internal interface IOrderService
+    public interface IOrderService
     {
         Task<OrderViewDto> AddAsync(CreateOrderDto data);
         Task<IEnumerable<Order>> GetAllAsync();

@@ -45,11 +45,17 @@ namespace SlimcareWeb.Service.Services
         public async Task<User> AddAsync(CreateUserDto data)
         {
             var checkEmail = await _userRepository.CheckEmailExist(data.Email);
+            var checkUsername = await _userRepository.CheckUsernameExist(data.Username);
             if (checkEmail)
             {
                 throw new Exception("Email already exists");
             }
+            if (checkUsername)
+            {
+                throw new Exception("Username already exists");
+            }
             var user = _mapper.Map<User>(data);
+            user.Delete_At = DateTime.MinValue;
             await _userRepository.AddAsync(user);
             return user;
         }

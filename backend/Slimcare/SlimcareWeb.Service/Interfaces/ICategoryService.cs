@@ -8,7 +8,7 @@ using SlimcareWeb.Service.Dtos.Category;
 
 namespace SlimcareWeb.Service.Interfaces
 {
-    internal interface ICategoryService
+    public interface ICategoryService
     {
         Task<CategoryViewDto> AddAsync(CreateCategoryDto data);
         Task<Category> SoftDeleteAsync(int id);

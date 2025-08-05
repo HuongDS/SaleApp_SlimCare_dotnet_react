@@ -30,5 +30,10 @@
                 await _dbContext.SaveChangesAsync();
             }
         }
+
+        public async Task<User?> GetUserByIdAsync(int userId)
+        {
+            return await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == userId);
+        }
     }
 }

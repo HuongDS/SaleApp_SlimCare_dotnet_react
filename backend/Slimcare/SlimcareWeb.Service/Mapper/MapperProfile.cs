@@ -23,7 +23,7 @@
         {
             // Address
             CreateMap<CreateAddressDto, Address>();
-            CreateMap<CreateAddressDto, AddressViewDto>();
+            CreateMap<Address, AddressViewDto>();
             CreateMap<UpdateAddressDto, Address>();
 
             // Category

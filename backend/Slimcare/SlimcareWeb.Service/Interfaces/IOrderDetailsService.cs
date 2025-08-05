@@ -8,7 +8,7 @@ using SlimcareWeb.Service.Dtos.OrderDetails;
 
 namespace SlimcareWeb.Service.Interfaces
 {
-    internal interface IOrderDetailsService
+    public interface IOrderDetailsService
     {
         Task AddAsync(CreateOrderDetailsDto data);
         Task<OrderDetails> SoftDeleteAsync(int id);
@@ -16,5 +16,6 @@ namespace SlimcareWeb.Service.Interfaces
         Task<OrderDetails?> GetByIdAsync(int id);
         Task<IEnumerable<OrderDetails>> GetByOrderIdAsync(int orderId);
         Task UpdateAsync(int id, int quantity);
+        Task<IEnumerable<OrderDetails>> GetAllProductAsync(int id);
     }
 }

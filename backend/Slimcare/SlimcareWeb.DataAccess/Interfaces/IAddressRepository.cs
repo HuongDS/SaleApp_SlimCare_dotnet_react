@@ -9,6 +9,7 @@ namespace SlimcareWeb.DataAccess.Interface
 {
     public interface IAddressRepository : IGenericRepository<Address>
     {
+        Task<User?> GetUserByIdAsync(int userId);
         Task UpdateAllAddressToNotDefaultAsync(int userId);
     }
 }

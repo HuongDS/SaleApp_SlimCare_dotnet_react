@@ -15,5 +15,6 @@ namespace SlimcareWeb.Service.Interfaces
         Task<Address?> GetByIdAsync(int id);
         Task<IEnumerable<Address>> GetAllAsync();
         Task<AddressViewDto> UpdateAsync(UpdateAddressDto data);
+        Task<AddressViewDto> SetAddressToDefault(int id);
     }
 }

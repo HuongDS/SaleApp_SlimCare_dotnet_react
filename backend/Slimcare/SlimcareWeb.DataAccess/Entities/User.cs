@@ -37,7 +37,7 @@
         /// <summary>
         /// Gets or sets the Delete_At
         /// </summary>
-        public DateTime Delete_At { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public DateTime Delete_At { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="User"/> class.
