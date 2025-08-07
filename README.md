@@ -27,6 +27,7 @@
 - **Repository Pattern**, **Dependency Injection**
 - **JWT Authentication** for secure login and role-based access
 - **VNPAY Integration** for online payment processing
+- **BCrypt.Net** for password hashing
 
 ### Frontend
 - **React 18**
