@@ -7,6 +7,7 @@ using AutoMapper;
 using SlimcareWeb.DataAccess.Entities;
 using SlimcareWeb.DataAccess.Interface;
 using SlimcareWeb.Service.Dtos.User;
+using SlimcareWeb.Service.Helpers;
 using SlimcareWeb.Service.Interfaces;
 
 namespace SlimcareWeb.Service.Services
@@ -35,10 +36,15 @@ namespace SlimcareWeb.Service.Services
         }
         public async Task<User> LoginAsync(UserLoginDTO data)
         {
-            var user = await _userRepository.LoginAsync(data.Username, data.Password);
+            var user = await _userRepository.GetUserByUsername(data.Username);
             if (user == null)
             {
-                throw new Exception("Invalid email or password");
+                throw new Exception("Invalid username.");
+            }
+            data.Password += user.Salting;
+            if (!BCryptHelper.BCryptVerify(user.Password, data.Password))
+            {
+                throw new Exception("Password is not correct.");
             }
             return user;
         }
@@ -54,7 +60,12 @@ namespace SlimcareWeb.Service.Services
             {
                 throw new Exception("Username already exists");
             }
+            // Process password
+            var salt = BCryptHelper.GenerateSalting(100);
+            data.Password += salt;
             var user = _mapper.Map<User>(data);
+            user.Salting = salt;
+            user.Password = BCryptHelper.BCryptHash(user.Password);
             user.Delete_At = DateTime.MinValue;
             await _userRepository.AddAsync(user);
             return user;
