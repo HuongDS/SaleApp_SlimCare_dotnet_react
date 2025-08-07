@@ -39,6 +39,8 @@
         /// </summary>
         public DateTime Delete_At { get; set; }
 
+        public string Salting { get; set; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="User"/> class.
         /// </summary>
@@ -46,23 +48,16 @@
         {
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="User"/> class.
-        /// </summary>
-        /// <param name="id">The id<see cref="int"/></param>
-        /// <param name="username">The username<see cref="string"/></param>
-        /// <param name="password">The password<see cref="string"/></param>
-        /// <param name="email">The email<see cref="string"/></param>
-        /// <param name="role">The role<see cref="Role"/></param>
-        /// <param name="deleteAt">The deleteAt<see cref="DateTime"/></param>
-        public User(int id, string username, string password, string email, Role role, DateTime deleteAt)
+        public User(int id, string username, string password, string email, Role role, DateTime delete_At, string salting)
         {
             Id = id;
             Username = username;
             Password = password;
             Email = email;
             Role = role;
-            Delete_At = deleteAt;
+            Delete_At = delete_At;
+            Salting = salting;
         }
+
     }
 }

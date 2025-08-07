@@ -14,10 +14,6 @@ namespace SlimcareWeb.DataAccess.Repositories
         public UserRepository(SlimCareDbContext dbContext) : base(dbContext)
         {
         }
-        public Task<User?> LoginAsync(string username, string password)
-        {
-            return _dbContext.Users.SingleOrDefaultAsync(u => u.Username.Equals(username) && u.Password.Equals(password) && u.Delete_At == DateTime.MinValue);
-        }
         public async Task<bool> CheckUsernameExist(string username)
         {
             return await _dbContext.Users.SingleOrDefaultAsync(u => u.Username.Equals(username) && u.Delete_At == DateTime.MinValue) != null;
@@ -38,6 +34,10 @@ namespace SlimcareWeb.DataAccess.Repositories
                 throw new Exception("Email not found");
             }
             return user.Email;
+        }
+        public async Task<User?> GetUserByUsername(string username)
+        {
+            return await _dbContext.Users.SingleOrDefaultAsync(u => u.Username.Equals(username) && u.Delete_At == DateTime.MinValue);
         }
     }
 }
