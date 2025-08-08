@@ -8,15 +8,15 @@ namespace SlimcareWeb.Service.Helpers
 {
     public class BCryptHelper
     {
-        public static string BCryptHash(string password)
+        public string BCryptHash(string password)
         {
             return BCrypt.Net.BCrypt.HashPassword(password);
         }
-        public static bool BCryptVerify(string passwordFromDb, string passwordFromUser)
+        public bool BCryptVerify(string passwordFromUser, string passwordFromDb)
         {
             return BCrypt.Net.BCrypt.Verify(passwordFromUser, passwordFromDb);
         }
-        public static string GenerateSalting(int length)
+        public string GenerateSalting(int length)
         {
             StringBuilder salt = new StringBuilder();
             var random = new Random();
