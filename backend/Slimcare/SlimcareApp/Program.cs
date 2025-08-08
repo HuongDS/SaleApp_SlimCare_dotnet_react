@@ -1,4 +1,7 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
+using SlimcareApp.Application.ModelValidation.User;
 using SlimcareWeb.DataAccess;
 using SlimcareWeb.DataAccess.Entities;
 using SlimcareWeb.DataAccess.Interface;
@@ -18,6 +21,9 @@ builder.Services.AddDbContext<ISlimCareDbContext, SlimCareDbContext>(option =>
     option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
     option.UseSqlServer(b => b.MigrationsAssembly("SlimcareWeb.DataAccess"));
 });
+// Add FluentValidation
+builder.Services.AddValidatorsFromAssemblyContaining<Program>();
+builder.Services.AddFluentValidationAutoValidation();
 // Address
 builder.Services.AddScoped<IAddressService, AddressService>();
 builder.Services.AddScoped<IAddressRepository, AddressRepository>();
