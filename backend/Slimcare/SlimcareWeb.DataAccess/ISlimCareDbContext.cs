@@ -42,5 +42,6 @@
         /// Gets or sets the Users
         /// </summary>
         public DbSet<User> Users { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
     }
 }

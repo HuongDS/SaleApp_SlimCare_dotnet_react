@@ -13,6 +13,7 @@ namespace SlimcareWeb.DataAccess.Interface
         Task<bool> CheckPassword(string password);
         Task<bool> CheckUsernameExist(string username);
         Task<string> GetEmailAsync(int id);
+        Task<User?> GetUserByEmail(string email);
         Task<User?> GetUserByUsername(string username);
     }
 }
