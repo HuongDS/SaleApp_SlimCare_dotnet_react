@@ -39,5 +39,9 @@ namespace SlimcareWeb.DataAccess.Repositories
         {
             return await _dbContext.Users.SingleOrDefaultAsync(u => u.Username.Equals(username) && u.Delete_At == DateTime.MinValue);
         }
+        public async Task<User?> GetUserByEmail(string email)
+        {
+            return await _dbContext.Users.SingleOrDefaultAsync(u => u.Email.Equals(email) && u.Delete_At == DateTime.MinValue);
+        }
     }
 }

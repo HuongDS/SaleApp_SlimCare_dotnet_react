@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SlimcareWeb.DataAccess;
 
@@ -11,9 +12,11 @@ using SlimcareWeb.DataAccess;
 namespace SlimcareWeb.DataAccess.Migrations
 {
     [DbContext(typeof(SlimCareDbContext))]
-    partial class SlimCareDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250810081634_update_table_refresh_token")]
+    partial class update_table_refresh_token
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -207,7 +210,7 @@ namespace SlimcareWeb.DataAccess.Migrations
                     b.Property<DateTime>("ExpiresAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("RevokeAt")
+                    b.Property<DateTime?>("ReplacedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("TokenHash")

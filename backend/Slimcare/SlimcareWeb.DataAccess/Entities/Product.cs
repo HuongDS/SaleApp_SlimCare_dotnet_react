@@ -6,7 +6,7 @@
     /// <summary>
     /// Defines the <see cref="Product" />
     /// </summary>
-    public class Product : IEntity, IDelete
+    public class Product : IEntity
     {
         /// <summary>
         /// Gets or sets the Id

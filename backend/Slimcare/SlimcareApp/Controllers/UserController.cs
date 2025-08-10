@@ -1,6 +1,9 @@
 ﻿using System.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic;
 using SlimcareWeb.DataAccess.Entities;
+using SlimcareWeb.Service.Dtos.Others;
 using SlimcareWeb.Service.Dtos.User;
 using SlimcareWeb.Service.Interfaces;
 
@@ -45,15 +48,38 @@ namespace SlimcareApp.Controllers
             }
         }
         [HttpPost("/Login")]
-        public async Task<ActionResult<User>> LoginAsync(UserLoginDTO data)
+        public async Task<IActionResult> LoginAsync(UserLoginDTO data)
         {
             try
             {
-                var user = await _userService.LoginAsync(data);
+                var res = await _userService.LoginAsync(data);
+                return Ok(res);
+            }
+            catch (Exception ex)
+            {
+                return Unauthorized(ex.Message);
+            }
+        }
+        [HttpPost("/Logout")]
+        [AllowAnonymous]
+        public async Task LogoutAsync([FromBody] RefreshTokenDto data)
+        {
+            Console.WriteLine("before logout");
+            await _userService.Logout(data);
+            Console.WriteLine("after logout");
+        }
+        [HttpPost("/LoginGoogle")]
+        public async Task<ActionResult<ResponseDto>> LoginGoogleAsync([FromBody] GoogleLoginDto data)
+        {
+            try
+            {
+                var user = await _userService.LoginByGoogle(data);
+                Console.WriteLine("Login Google success!");
                 return Ok(user);
             }
             catch (Exception ex)
             {
+                Console.WriteLine("Login Google fail!");
                 return Unauthorized(ex.Message);
             }
         }
@@ -81,6 +107,19 @@ namespace SlimcareApp.Controllers
             catch (Exception ex)
             {
                 return NotFound(ex.Message);
+            }
+        }
+        [HttpPost("/RotateRefreshToken")]
+        public async Task<ActionResult<ResponseDto>> RotateRefreshToken([FromBody] RefreshTokenDto refreshToken)
+        {
+            try
+            {
+                var res = await _userService.RotateRefreshToken(refreshToken);
+                return Ok(res);
+            }
+            catch (Exception e)
+            {
+                return Unauthorized(e.Message);
             }
         }
     }
