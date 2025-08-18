@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { setTokens } from "../token/tokenStore";
+import { setTokens } from "../../token/tokenStore";
 
 type GsiCredential = { credential: string };
 
@@ -7,7 +7,6 @@ export default function GoogleLoginButton() {
   const btnRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // debug env (có thể xoá sau khi ổn định)
     if (!import.meta.env.VITE_GOOGLE_CLIENT_ID) {
       console.warn(
         "VITE_GOOGLE_CLIENT_ID is missing"
@@ -17,14 +16,12 @@ export default function GoogleLoginButton() {
       console.warn("VITE_API_BASE is missing");
     }
 
-    // đợi script GIS load
     const id = setInterval(() => {
       if (!window.google) return;
       clearInterval(id);
 
       window.google.accounts.id.initialize({
-        client_id: import.meta.env
-          .VITE_GOOGLE_CLIENT_ID,
+        client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
         callback: handleCredentialResponse,
       });
 
@@ -32,8 +29,11 @@ export default function GoogleLoginButton() {
         window.google.accounts.id.renderButton(
           btnRef.current,
           {
-            theme: "outline",
-            size: "large",
+            theme: "filled_blue",
+            size: "medium",
+            logo_alignment: "center",
+            text:"signin_with",
+            shape:"rectangular"
           }
         );
       }
@@ -45,9 +45,8 @@ export default function GoogleLoginButton() {
     return () => clearInterval(id);
   }, []);
 
-  async function handleCredentialResponse(
-    resp: GsiCredential
-  ) {
+  async function handleCredentialResponse(resp: GsiCredential) 
+  {
     try {
       const apiBase = (
         import.meta.env.VITE_API_BASE as string
