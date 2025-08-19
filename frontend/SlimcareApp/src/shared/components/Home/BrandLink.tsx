@@ -8,7 +8,7 @@ export default function BrandLink() {
       <Container>
         <Navbar.Brand href="#home">
           <Image
-            src="/images/logo-remove-bg.png"
+            src="/public/images/logo-remove-bg.png"
             width={60}
             height={60}
             roundedCircle
