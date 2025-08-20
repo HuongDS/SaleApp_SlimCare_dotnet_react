@@ -163,7 +163,7 @@ namespace SlimcareWeb.Service.Services
             {
                 Username = name,
                 Email = email,
-                Password = "GoogleLogin",
+                Password = _configuration["GoogleAuth:DefaultPassword"]!,
                 Role = Role.USER,
             };
             var user = _mapper.Map<User>(createUser);
@@ -189,6 +189,14 @@ namespace SlimcareWeb.Service.Services
         }
         public async Task<ResponseDto> GenerateResponseFromUser(User user)
         {
+            var oldRefreshToken = await _refreshTokenService.FindRefreshTokenByUserId(user.Id);
+            if (oldRefreshToken != null)
+            {
+                // If user already has a valid refresh token, revoke it
+                oldRefreshToken.RevokeAt = DateTime.UtcNow;
+                await _refreshTokenService.UpdateAsync(oldRefreshToken);
+                await _refreshTokenService.SoftDeleteAsync(oldRefreshToken.Id);
+            }
             var accessToken = _jwtTokenService.GenerateAccessToken(user);
             var (rtPlain, rtEntity) = _jwtTokenService.GenerateRefreshToken(user.Id, TimeSpan.FromDays(_jwtSettings.RefreshTokenLifetimeDays));
             await _refreshTokenService.AddAsync(rtEntity);
@@ -208,6 +216,7 @@ namespace SlimcareWeb.Service.Services
                 throw new Exception("User not found");
             }
             oldRefreshToken.RevokeAt = DateTime.UtcNow;
+            await _refreshTokenService.UpdateAsync(oldRefreshToken);
             await _refreshTokenService.SoftDeleteAsync(oldRefreshToken.Id);
             var response = await GenerateResponseFromUser(user);
             return response;
