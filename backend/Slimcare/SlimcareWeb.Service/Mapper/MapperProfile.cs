@@ -53,6 +53,7 @@
             CreateMap<CreateUserDto, User>();
             CreateMap<UpdateUserDto, User>();
             CreateMap<UserLoginDTO, User>();
+            CreateMap<User, ResponseUserDto>();
         }
     }
 }

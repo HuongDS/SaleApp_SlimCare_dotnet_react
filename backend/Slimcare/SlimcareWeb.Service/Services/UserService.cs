@@ -192,7 +192,7 @@ namespace SlimcareWeb.Service.Services
             var accessToken = _jwtTokenService.GenerateAccessToken(user);
             var (rtPlain, rtEntity) = _jwtTokenService.GenerateRefreshToken(user.Id, TimeSpan.FromDays(_jwtSettings.RefreshTokenLifetimeDays));
             await _refreshTokenService.AddAsync(rtEntity);
-            var response = new ResponseDto(accessToken, rtPlain, _jwtSettings.ExpirationInMinutes, user, Role.USER.ToString());
+            var response = new ResponseDto(accessToken, rtPlain, _jwtSettings.ExpirationInMinutes, _mapper.Map<ResponseUserDto>(user), Role.USER.ToString());
             return response;
         }
         public async Task<ResponseDto> RotateRefreshToken(RefreshTokenDto refreshToken)
@@ -200,7 +200,7 @@ namespace SlimcareWeb.Service.Services
             var oldRefreshToken = await _refreshTokenService.FindValidAsync(refreshToken.refreshToken);
             if (oldRefreshToken == null)
             {
-                throw new UnauthorizedAccessException("Invalid or expired refresh token");
+                throw new Exception("Can not find refreshToken.");
             }
             var user = await _userRepository.GetByIdAsync(oldRefreshToken.UserId);
             if (user == null)

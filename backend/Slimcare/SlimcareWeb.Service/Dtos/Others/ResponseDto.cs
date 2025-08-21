@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SlimcareWeb.DataAccess.Entities;
+using SlimcareWeb.Service.Dtos.User;
 
 
 namespace SlimcareWeb.Service.Dtos.Others
@@ -13,10 +14,10 @@ namespace SlimcareWeb.Service.Dtos.Others
         public string AccessToken { get; set; }
         public string RefreshToken { get; set; }
         public int ExpiresIn { get; set; }
-        public DataAccess.Entities.User User { get; set; }
+        public ResponseUserDto User { get; set; }
         public string Role { get; set; }
 
-        public ResponseDto(string accessToken, string refreshToken, int expiresIn, DataAccess.Entities.User user, string role)
+        public ResponseDto(string accessToken, string refreshToken, int expiresIn, ResponseUserDto user, string role)
         {
             AccessToken = accessToken;
             RefreshToken = refreshToken;
