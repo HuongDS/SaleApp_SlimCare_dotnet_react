@@ -10,6 +10,7 @@ namespace SlimcareWeb.DataAccess.Interfaces
 {
     public interface IRefreshTokenRepository : IGenericRepository<RefreshToken>
     {
+        Task<RefreshToken?> FindByUserIdAsync(int userId);
         Task<List<RefreshToken>> FindValidRefreshToken();
     }
 }
