@@ -1,8 +1,15 @@
 using AutoMapper;
+using Castle.Core.Configuration;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Moq;
 using SlimcareWeb.DataAccess.Entities;
 using SlimcareWeb.DataAccess.Enums;
 using SlimcareWeb.DataAccess.Interface;
+using SlimcareWeb.DataAccess.Interfaces;
+using SlimcareWeb.DataAccess.Repositories;
+using SlimcareWeb.Service.AppsettingsConfigurations;
+using SlimcareWeb.Service.Dtos.Others;
 using SlimcareWeb.Service.Dtos.User;
 using SlimcareWeb.Service.Helpers;
 using SlimcareWeb.Service.Interfaces;
@@ -16,32 +23,63 @@ namespace SlimcareWeb.Tests
         private readonly BCryptHelper _BCrypt;
         private readonly Mock<IMapper> _mapperMock;
         private readonly UserService _userService;
+        private readonly Mock<IJwtTokenService> _jwtTokenService;
+        private readonly Mock<IRefreshTokenService> _refreshTokenService;
+        private readonly JwtSettings _jwtSettings;
 
         public UserServiceTests()
         {
             _userRepositoryMock = new Mock<IUserRepository>();
             _BCrypt = new BCryptHelper();
             _mapperMock = new Mock<IMapper>();
-            _userService = new UserService(_userRepositoryMock.Object, _mapperMock.Object);
+            _jwtTokenService = new Mock<IJwtTokenService>();
+            _jwtSettings = new JwtSettings();
+            _refreshTokenService = new Mock<IRefreshTokenService>();
+            _userService = new UserService(_userRepositoryMock.Object, _mapperMock.Object, _jwtTokenService.Object, _jwtSettings, _refreshTokenService.Object);
         }
 
         [Fact]
-        public async Task Post_LoginWithValidAccount_ReturnUserModelAsync()
+        public async Task Post_LoginWithValidAccount_ReturnResponseDtoAsync()
         {
             // Arrange  
             var input = new UserLoginDTO("validUsername", "hashedPassword");
             var salting = _BCrypt.GenerateSalting(100);
-            var realPass = input.Password + salting;
-            var hashedPassword = _BCrypt.BCryptHash(realPass);
-            var expectedUser = new User(1, input.Username, hashedPassword, "validUser@gmail.com", DataAccess.Enums.Role.USER, DateTime.MinValue, salting);
+            var hashedPassword = _BCrypt.BCryptHash(input.Password + salting);
+            var expectedUser = new User
+            {
+                Id = 1,
+                Username = input.Username,
+                Password = hashedPassword,
+                Email = "validUser@gmail.com",
+                Role = DataAccess.Enums.Role.USER,
+                Delete_At = DateTime.MinValue,
+                Salting = salting
+            };
             _userRepositoryMock.Setup(u => u.GetUserByUsername(input.Username)).ReturnsAsync(expectedUser);
-            input.Password += expectedUser.Salting;
-            var check = _BCrypt.BCryptVerify(input.Password, expectedUser.Password);
+            var check = _BCrypt.BCryptVerify(input.Password + expectedUser.Salting, expectedUser.Password);
+            var accessToken = "validAccessToken";
+            _jwtTokenService.Setup(j => j.GenerateAccessToken(expectedUser)).Returns(accessToken);
+            var refreshToken = new RefreshToken
+            {
+                Id = 9999,
+                UserId = expectedUser.Id,
+                User = expectedUser,
+                TokenHash = "9999",
+                TokenSalt = "salt",
+                ExpiresAt = DateTime.UtcNow.AddDays(14),
+                CreatedAt = DateTime.UtcNow,
+                RevokeAt = DateTime.MinValue,
+                Delete_At = DateTime.MinValue
+            };
+            var rtPlain = "validRefreshToken";
+            _jwtTokenService.Setup(j => j.GenerateRefreshToken(expectedUser.Id, TimeSpan.FromDays(14))).Returns((rtPlain, refreshToken));
+            _refreshTokenService.Setup(r => r.AddAsync(It.IsAny<RefreshToken>())).ReturnsAsync(1);
+            var expectedResponse = new ResponseDto(accessToken, rtPlain, 15, expectedUser, Role.USER.ToString());
             // Act  
-            var user = await _userService.LoginAsync(input);
+            var response = await _userService.LoginAsync(input);
             // Assert  
-            Assert.NotNull(user);
-            Assert.True(check);
+            Assert.Equal(accessToken, response.AccessToken);
+            Assert.Equal(rtPlain, response.RefreshToken);
         }
 
         [Fact]
@@ -63,7 +101,18 @@ namespace SlimcareWeb.Tests
         {
             // Arrange  
             var input = new UserLoginDTO("validUsername", "inValidPassword");
-            var expectedUser = new User(1, input.Username, "vallidPassword", "validUser@gmail.com", DataAccess.Enums.Role.USER, DateTime.MinValue, "abc");
+            var salting = _BCrypt.GenerateSalting(100);
+            var hashedPassword = _BCrypt.BCryptHash("validPassword" + salting);
+            var expectedUser = new User
+            {
+                Id = 1,
+                Username = input.Username,
+                Password = hashedPassword,
+                Email = "validUser@gmail.com",
+                Role = DataAccess.Enums.Role.USER,
+                Delete_At = DateTime.MinValue,
+                Salting = salting
+            };
             _userRepositoryMock.Setup(u => u.GetUserByUsername(input.Username)).ReturnsAsync(expectedUser);
             input.Password += expectedUser.Salting;
             // Act  

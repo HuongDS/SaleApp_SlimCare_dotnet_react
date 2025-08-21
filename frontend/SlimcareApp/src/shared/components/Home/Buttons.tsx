@@ -67,9 +67,3 @@ export default function Buttons() {
           </Button>
         </Modal.Footer>
       </Modal>
-      <Button variant="primary" size="lg">
-        Sign-up
-      </Button>
-    </div>
-  );
-}
