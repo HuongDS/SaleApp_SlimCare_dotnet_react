@@ -5,6 +5,8 @@ import {
   getRefreshToken,
 } from "../../token/tokenStore";
 import { api } from "./api";
+import { setTokens } from "../../token/tokenStore";
+
 
 // Login with username and password
 export async function loginWithPassword(
@@ -12,7 +14,7 @@ export async function loginWithPassword(
 ) {
   const response = await api.post<ResponseDto>(
     "/Login",
-    { loginData }
+    loginData
   );
   return response.data;
 }
@@ -29,7 +31,8 @@ export async function loginWithGoogle(
 }
 
 // Save token
-export function setTokens(
+export function saveTokens(
+
   accessToken: string,
   refreshToken: string
 ) {
