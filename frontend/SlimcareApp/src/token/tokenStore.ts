@@ -1,5 +1,7 @@
-const ACCESS_KEY = "sc_access_token";
-const REFRESH_KEY = "sc_refresh_token";
+
+const ACCESS_KEY = import.meta.env.ACCESS_KEY;
+const REFRESH_KEY = import.meta.env.REFRESH_KEY;
+
 
 export function setTokens(
   accessToken: string,
