@@ -4,6 +4,7 @@ import {
   saveTokens,
 } from "../../../services/api/authService";
 
+
 type GsiCredential = { credential: string };
 
 export default function GoogleLoginButton() {
@@ -17,7 +18,8 @@ export default function GoogleLoginButton() {
 
       // khởi tạo google identity services
       window.google.accounts.id.initialize({
-        client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
+        client_id: import.meta.env
+          .VITE_GOOGLE_CLIENT_ID,
         callback: handleCredentialResponse,
       });
 
@@ -28,8 +30,8 @@ export default function GoogleLoginButton() {
             theme: "filled_blue",
             size: "medium",
             logo_alignment: "center",
-            text:"signin_with",
-            shape:"rectangular"
+            text: "signin_with",
+            shape: "rectangular",
           }
         );
       }
@@ -40,8 +42,9 @@ export default function GoogleLoginButton() {
     return () => clearInterval(id);
   }, []);
 
-  async function handleCredentialResponse(resp: GsiCredential) 
-  {
+  async function handleCredentialResponse(
+    resp: GsiCredential
+  ) {
     try {
       const data = await loginWithGoogle(
         resp.credential
