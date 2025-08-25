@@ -27,6 +27,8 @@ namespace SlimcareWeb.Service.Services
         private readonly IJwtTokenService _jwtTokenService;
         private readonly JwtSettings _jwtSettings;
         private readonly IRefreshTokenService _refreshTokenService;
+        private IUserRepository object1;
+        private IMapper object2;
 
         public UserService(IUserRepository userRepository, IMapper mapper, IConfiguration configuration, IGoogleService googleService,
             IJwtTokenService jwtTokenService, IOptions<JwtSettings> jwtSettings,
@@ -50,6 +52,12 @@ namespace SlimcareWeb.Service.Services
             _jwtTokenService = jwtTokenService;
             _jwtSettings = jwtSettings;
             _refreshTokenService = refreshTokenService;
+        }
+
+        public UserService(IUserRepository object1, IMapper object2)
+        {
+            this.object1 = object1;
+            this.object2 = object2;
         }
 
         public async Task<IEnumerable<User>> GetAllAsync()
