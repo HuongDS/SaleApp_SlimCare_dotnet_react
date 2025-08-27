@@ -12,6 +12,7 @@ import {
   saveTokens,
 } from "../../../services/api/authService";
 import type { UserLoginDto } from "../../../model/LoginModel";
+import GoogleLoginButton from "../Home/GoogleLoginButton";
 
 export default function LoginForm() {
   const [showLoginForm, setShowLoginForm] =
@@ -140,6 +141,7 @@ export default function LoginForm() {
               "Log In"
             )}
           </Button>
+          <GoogleLoginButton></GoogleLoginButton>
         </Modal.Footer>
       </Modal>
     </>

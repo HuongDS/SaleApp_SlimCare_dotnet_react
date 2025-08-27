@@ -3,10 +3,9 @@ export type UserLoginDto = {
   Password: string;
 };
 
-
 export type UserSignUpDto = {
   Username: string;
   Password: string;
   Email: string;
+  Role: string;
 };
-

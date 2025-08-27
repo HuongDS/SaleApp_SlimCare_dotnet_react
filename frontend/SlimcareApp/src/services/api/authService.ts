@@ -1,12 +1,17 @@
-import type { ResponseDto } from "../../model/AuthResponse";
-import type { UserLoginDto } from "../../model/LoginModel";
+import type {
+  ResponseDto,
+  User,
+} from "../../model/AuthResponse";
+import type {
+  UserLoginDto,
+  UserSignUpDto,
+} from "../../model/LoginModel";
 import {
   clearTokens,
   getRefreshToken,
 } from "../../token/tokenStore";
 import { api } from "./api";
 import { setTokens } from "../../token/tokenStore";
-
 
 // Login with username and password
 export async function loginWithPassword(
@@ -30,9 +35,19 @@ export async function loginWithGoogle(
   return response.data;
 }
 
+// Sign Up
+export async function signUp(
+  signUpData: UserSignUpDto
+) {
+  const response = await api.post<User>(
+    "/AddUser",
+    signUpData
+  );
+  return response.data;
+}
+
 // Save token
 export function saveTokens(
-
   accessToken: string,
   refreshToken: string
 ) {

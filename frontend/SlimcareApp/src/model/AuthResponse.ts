@@ -3,6 +3,7 @@ export type User = {
   Username: string;
   Email: string;
   Role: string;
+  Password: string;
 };
 
 export type ResponseDto = {
