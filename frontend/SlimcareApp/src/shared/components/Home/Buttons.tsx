@@ -1,14 +1,23 @@
-import { Button } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import LoginForm from "../Login/LoginForm";
+import SignUpForm from "../SignUp/SignUpForm";
+import type { RootState } from "../../../redux/store";
+import LogoutButton from "./LogoutButton";
 
 export default function Buttons() {
+  const { isAuthenticated } = useSelector(
+    (state: RootState) => state.auth
+  );
   return (
     <div className="d-flex gap-2 ms-lg-auto align-items-center">
-      <Button variant="outline-primary" size="lg">
-        Login
-      </Button>
-      <Button variant="primary" size="lg">
-        Sign-up
-      </Button>
+      {isAuthenticated ? (
+        <LogoutButton></LogoutButton>
+      ) : (
+        <>
+          <LoginForm></LoginForm>
+          <SignUpForm></SignUpForm>
+        </>
+      )}
     </div>
   );
 }

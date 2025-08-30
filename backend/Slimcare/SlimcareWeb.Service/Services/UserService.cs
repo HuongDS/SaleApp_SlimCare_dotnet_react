@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using AutoMapper;
 using Azure;
 using Microsoft.AspNetCore.Mvc;
@@ -54,6 +50,12 @@ namespace SlimcareWeb.Service.Services
             _jwtTokenService = jwtTokenService;
             _jwtSettings = jwtSettings;
             _refreshTokenService = refreshTokenService;
+        }
+
+        public UserService(IUserRepository object1, IMapper object2)
+        {
+             this._userRepository = object1;
+             this._mapper = object2;
         }
 
         public async Task<IEnumerable<User>> GetAllAsync()
@@ -163,7 +165,7 @@ namespace SlimcareWeb.Service.Services
             {
                 Username = name,
                 Email = email,
-                Password = "GoogleLogin",
+                Password = _configuration["GoogleAuth:DefaultPassword"]!,
                 Role = Role.USER,
             };
             var user = _mapper.Map<User>(createUser);
@@ -187,13 +189,13 @@ namespace SlimcareWeb.Service.Services
                 Console.WriteLine("User logged out fail.");
             }
         }
-        public async Task<ResponseDto> GenerateResponseFromUser(User user)
+         public async Task<ResponseDto> GenerateResponseFromUser(User user)
         {
-            var accessToken = _jwtTokenService.GenerateAccessToken(user);
-            var (rtPlain, rtEntity) = _jwtTokenService.GenerateRefreshToken(user.Id, TimeSpan.FromDays(_jwtSettings.RefreshTokenLifetimeDays));
-            await _refreshTokenService.AddAsync(rtEntity);
-            var response = new ResponseDto(accessToken, rtPlain, _jwtSettings.ExpirationInMinutes, _mapper.Map<ResponseUserDto>(user), Role.USER.ToString());
-            return response;
+             var accessToken = _jwtTokenService.GenerateAccessToken(user);
+             var (rtPlain, rtEntity) = _jwtTokenService.GenerateRefreshToken(user.Id, TimeSpan.FromDays(_jwtSettings.RefreshTokenLifetimeDays));
+             await _refreshTokenService.AddAsync(rtEntity);
+             var response = new ResponseDto(accessToken, rtPlain, _jwtSettings.ExpirationInMinutes, user, Role.USER.ToString());
+             return response;
         }
         public async Task<ResponseDto> RotateRefreshToken(RefreshTokenDto refreshToken)
         {
