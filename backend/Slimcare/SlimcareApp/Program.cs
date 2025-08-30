@@ -13,6 +13,9 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using SlimcareWeb.DataAccess.Interfaces;
+using SlimcareWeb.Service.AppsettingsConfigurations;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
 
