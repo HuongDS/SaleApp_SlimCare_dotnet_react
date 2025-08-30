@@ -1,82 +1,38 @@
-import { useState } from "react";
+import { Button } from "react-bootstrap";
+import { getRefreshToken } from "../../../token/tokenStore";
+import { logout } from "../../../services/api/authService";
+import { logoutRedux } from "../../../redux/authSlice";
 import {
-    clearTokens,
-    getRefreshToken,
-} from "../../token/tokenStore";
-
-const API_BASE = import.meta.env.VITE_API_BASE as
-    | string
-    | undefined;
-
-function joinUrl(base: string, path: string) {
-    return `${base.replace(
-        /\/+$/,
-        ""
-    )}/${path.replace(/^\/+/, "")}`;
-}
+  useDispatch,
+  useSelector,
+} from "react-redux";
+import type {
+  AppDispatch,
+  RootState,
+} from "../../../redux/store";
 
 export default function LogoutButton() {
-    const [loading, setLoading] = useState(false);
+  const refreshToken = getRefreshToken();
+  const user = useSelector(
+    (state: RootState) => state.auth.user
+  );
+  const dispatch = useDispatch<AppDispatch>();
 
-    const handleLogout = async () => {
-        if (!API_BASE) {
-            console.error(
-                " VITE_API_BASE is missing in .env"
-            );
-            return;
-        }
-
-        setLoading(true);
-        try {
-            const refreshToken = getRefreshToken(); // camelCase cho khớp BE
-            const url = joinUrl(API_BASE, "Logout");
-
-            console.log("🔗 Logout URL:", url);
-            console.log(
-                "🔑 Refresh token exists:",
-                !!refreshToken
-            );
-
-            // Gọi API revoke nếu có refreshToken
-            if (refreshToken) {
-                const resp = await fetch(url, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ refreshToken }), //  BE nhận đúng tên key
-                });
-
-                if (!resp.ok) {
-                    const text = await resp.text();
-                    console.warn(
-                        `Logout failed [${resp.status}]:`,
-                        text
-                    );
-                }
-            } else {
-                console.warn(
-                    " Không tìm thấy refreshToken, chỉ xóa token ở client"
-                );
-            }
-        } catch (err) {
-            console.error("❌ Logout error:", err);
-        } finally {
-            clearTokens(); // Xóa token ở client
-            setLoading(false);
-            alert("Đã đăng xuất");
-            // window.location.href = "/"; // điều hướng nếu muốn
-        }
-    };
-
-    return (
-        <button
-            onClick={handleLogout}
-            disabled={loading}
-        >
-            {loading
-                ? "Logging Out..."
-                : "Logout"}
-        </button>
-    );
+  return (
+    <>
+      <h5 className="me-3">
+        Welcome {user?.username}
+      </h5>
+      <Button
+        variant="outline-danger"
+        size="sm"
+        onClick={() => {
+          logout(refreshToken);
+          dispatch(logoutRedux());
+        }}
+      >
+        Log Out
+      </Button>
+    </>
+  );
 }

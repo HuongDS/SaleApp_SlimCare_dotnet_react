@@ -1,6 +1,6 @@
 export type User = {
   Id: number;
-  Username: string;
+  username: string;
   Email: string;
   Role: string;
   Password: string;
@@ -10,6 +10,6 @@ export type ResponseDto = {
   AccessToken: string;
   RefreshToken: string;
   ExpiresIn: number;
-  User: User;
+  user: User;
   Role: string;
 };

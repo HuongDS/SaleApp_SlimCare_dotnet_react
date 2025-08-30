@@ -49,7 +49,7 @@ export default function SignUpForm() {
       setEmail("");
       setConfirm("");
       const loginData: UserLoginDto = {
-        Username: data.Username,
+        Username: data.username,
         Password: data.Password,
       };
 

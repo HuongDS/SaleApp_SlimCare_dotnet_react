@@ -13,8 +13,12 @@ import {
 } from "../../../services/api/authService";
 import type { UserLoginDto } from "../../../model/LoginModel";
 import GoogleLoginButton from "../Home/GoogleLoginButton";
+import { useDispatch } from "react-redux";
+import { loginSuccess } from "../../../redux/authSlice";
+import type { AppDispatch } from "../../../redux/store";
 
 export default function LoginForm() {
+  const dispatch = useDispatch<AppDispatch>();
   const [showLoginForm, setShowLoginForm] =
     useState(false);
   const [username, setUsername] = useState("");
@@ -42,6 +46,8 @@ export default function LoginForm() {
       const data = await loginWithPassword(
         userLoginData
       );
+      dispatch(loginSuccess(data.user));
+
       setUsername("");
       setPassword("");
       saveTokens(

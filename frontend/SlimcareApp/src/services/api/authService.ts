@@ -55,7 +55,10 @@ export function saveTokens(
 }
 
 // Log out
-export function logout() {
+export async function logout(
+  refreshToken: string | null
+) {
+  await api.post("/Logout", refreshToken);
   clearTokens();
 }
 
