@@ -2,8 +2,7 @@ import { useEffect, useRef } from "react";
 import {
   loginWithGoogle,
   saveTokens,
-} from "../../../services/api/authService";
-
+} from "../../../services/authService";
 
 type GsiCredential = { credential: string };
 

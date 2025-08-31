@@ -10,5 +10,6 @@ namespace SlimcareWeb.DataAccess.Interface
     public interface IProductRepository : IGenericRepository<Product>
     {
         Task<bool> CheckProductExist(string productName);
+        Task<IEnumerable<Product>> GetProductsWithQuantity(int quantity);
     }
 }
