@@ -1,17 +1,17 @@
 import type {
   ResponseDto,
   User,
-} from "../../model/AuthResponse";
+} from "../model/AuthResponse";
 import type {
   UserLoginDto,
   UserSignUpDto,
-} from "../../model/LoginModel";
+} from "../model/LoginModel";
 import {
   clearTokens,
   getRefreshToken,
-} from "../../token/tokenStore";
-import { api } from "./api";
-import { setTokens } from "../../token/tokenStore";
+} from "../token/tokenStore";
+import { api } from "../api/api";
+import { setTokens } from "../token/tokenStore";
 
 // Login with username and password
 export async function loginWithPassword(
