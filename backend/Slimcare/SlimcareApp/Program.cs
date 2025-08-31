@@ -43,6 +43,10 @@ builder.Services.AddScoped<IGenericRepository<User>, GenericRepository<User>>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IGenericRepository<Category>, GenericRepository<Category>>();
+// Product
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IGenericRepository<Product>, GenericRepository<Product>>();
 // RefreshToken
 builder.Services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
 builder.Services.AddScoped<IRefreshTokenService, RefreshTokenService>();
