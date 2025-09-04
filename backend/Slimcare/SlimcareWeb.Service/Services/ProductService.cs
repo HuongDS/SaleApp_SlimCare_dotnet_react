@@ -29,6 +29,10 @@ namespace SlimcareWeb.Service.Services
         {
             return await _productRepository.GetByIdAsync(id);
         }
+        public async Task<IEnumerable<Product>> GetProductsWithQuantityAsync(int quantity)
+        {
+            return await _productRepository.GetProductsWithQuantity(quantity);
+        }
         public async Task<ProductViewDto> AddAsync(CreateProductDto data)
         {
             var checkNameProduct = await _productRepository.CheckProductExist(data.Name);

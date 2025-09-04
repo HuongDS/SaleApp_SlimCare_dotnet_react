@@ -14,6 +14,7 @@ namespace SlimcareWeb.Service.Interfaces
         Task<ProductViewDto> AddAsync(CreateProductDto data);
         Task<IEnumerable<Product>> GetAllAsync();
         Task<Product?> GetByIdAsync(int id);
+        Task<IEnumerable<Product>> GetProductsWithQuantityAsync(int quantity);
         Task<Product> SoftDeleteAsync(int id);
         Task<ProductViewDto> UpdateAsync(UpdateProductDto data);
     }

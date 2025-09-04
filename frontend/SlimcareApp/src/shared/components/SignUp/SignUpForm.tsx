@@ -7,7 +7,7 @@ import {
   loginWithPassword,
   saveTokens,
   signUp,
-} from "../../../services/api/authService";
+} from "../../../services/authService";
 import {
   Button,
   FloatingLabel,
