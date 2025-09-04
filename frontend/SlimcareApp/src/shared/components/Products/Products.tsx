@@ -34,7 +34,6 @@ export default function Products() {
         10
       );
       setProducts(data);
-      console.log(data);
     })();
   }, []);
 
@@ -49,7 +48,6 @@ export default function Products() {
         infinite
       >
         {products.map((p) => {
-          console.log(p);
           return (
             <ProductComponent
               key={p.id}
@@ -58,6 +56,7 @@ export default function Products() {
               name={p.name}
               description={p.description}
               price={p.price}
+              stock={p.stock}
             />
           );
         })}

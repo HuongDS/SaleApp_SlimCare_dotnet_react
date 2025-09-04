@@ -8,6 +8,7 @@ export default function Buttons() {
   const { isAuthenticated } = useSelector(
     (state: RootState) => state.auth
   );
+
   return (
     <div className="d-flex gap-2 ms-lg-auto align-items-center">
       {isAuthenticated ? (

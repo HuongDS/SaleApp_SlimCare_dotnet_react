@@ -1,5 +1,10 @@
 import { api } from "../api/api";
-import type { Product } from "../model/ProductModel";
+
+import type {
+  PageResult,
+  Product,
+} from "../model/ProductModel";
+
 
 export async function getProductsWithQuantity(
   quantity: number
@@ -9,3 +14,17 @@ export async function getProductsWithQuantity(
   );
   return products.data;
 }
+
+export async function getProductsWithPagination({
+  pageIndex,
+  pageSize,
+}: {
+  pageIndex: number;
+  pageSize: number;
+}) {
+  const res = await api.get<PageResult>(
+    `/GetProducts/${pageIndex}/${pageSize}`
+  );
+  return res.data;
+}
+
