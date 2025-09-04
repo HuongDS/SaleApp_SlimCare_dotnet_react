@@ -2,13 +2,16 @@ import { useEffect, useRef } from "react";
 import {
   loginWithGoogle,
   saveTokens,
-} from "../../../services/api/authService";
-
+} from "../../../services/authService";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../../../redux/store";
+import { loginSuccess } from "../../../redux/authSlice";
 
 type GsiCredential = { credential: string };
 
 export default function GoogleLoginButton() {
   const btnRef = useRef<HTMLDivElement>(null);
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -40,6 +43,7 @@ export default function GoogleLoginButton() {
     }, 100);
 
     return () => clearInterval(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function handleCredentialResponse(
@@ -55,6 +59,7 @@ export default function GoogleLoginButton() {
       window.dispatchEvent(
         new Event("auth-changed")
       );
+      dispatch(loginSuccess(data.user));
       alert("Login successfully!");
     } catch (err) {
       console.error("Login error:", err);

@@ -47,14 +47,12 @@ export default function LoginForm() {
         userLoginData
       );
       dispatch(loginSuccess(data.user));
-
       setUsername("");
       setPassword("");
       saveTokens(
         data.AccessToken,
         data.RefreshToken
       );
-      console.log("Login success");
     } catch (err) {
       console.log("Error: ", err);
       setError("Something went wrong!");
