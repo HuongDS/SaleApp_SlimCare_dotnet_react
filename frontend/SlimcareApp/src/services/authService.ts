@@ -1,4 +1,5 @@
 import type {
+  RefreshTokenDto,
   ResponseDto,
   User,
 } from "../model/AuthResponse";
@@ -56,9 +57,11 @@ export function saveTokens(
 
 // Log out
 export async function logout(
-  refreshToken: string | null
+  refreshToken: RefreshTokenDto
 ) {
-  await api.post("/Logout", refreshToken);
+  await api.post("/Logout", refreshToken, {
+    withCredentials: true,
+  });
   clearTokens();
 }
 

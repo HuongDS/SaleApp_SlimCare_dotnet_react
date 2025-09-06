@@ -11,6 +11,7 @@ import type {
   RootState,
 } from "../../../redux/store";
 import Cart from "../Cart/Cart";
+import type { RefreshTokenDto } from "../../../model/AuthResponse";
 
 export default function LogoutButton() {
   const refreshToken = getRefreshToken();
@@ -18,6 +19,9 @@ export default function LogoutButton() {
     (state: RootState) => state.auth.user
   );
   const dispatch = useDispatch<AppDispatch>();
+  const refresh: RefreshTokenDto = {
+    RefreshToken: refreshToken,
+  };
 
   return (
     <>
@@ -29,7 +33,7 @@ export default function LogoutButton() {
         variant="outline-danger"
         size="sm"
         onClick={() => {
-          logout(refreshToken);
+          logout(refresh);
           dispatch(logoutRedux());
         }}
       >

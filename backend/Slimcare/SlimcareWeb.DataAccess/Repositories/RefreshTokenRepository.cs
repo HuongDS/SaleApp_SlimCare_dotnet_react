@@ -19,5 +19,9 @@ namespace SlimcareWeb.DataAccess.Repositories
         {
             return await _dbContext.RefreshTokens.Where(rt => rt.RevokeAt == DateTime.MinValue && rt.Delete_At == DateTime.MinValue && rt.ExpiresAt > DateTime.UtcNow).Take(500).ToListAsync();
         }
+        public async Task<RefreshToken?> FindRefreshTokenByUserId(int userId)
+        {
+            return await _dbContext.RefreshTokens.Where(rt => rt.UserId == userId && rt.RevokeAt == DateTime.MinValue && rt.Delete_At == DateTime.MinValue && rt.ExpiresAt > DateTime.UtcNow).FirstOrDefaultAsync();
+        }
     }
 }

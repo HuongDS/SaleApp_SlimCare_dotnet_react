@@ -50,8 +50,8 @@ export default function LoginForm() {
       setUsername("");
       setPassword("");
       saveTokens(
-        data.AccessToken,
-        data.RefreshToken
+        data.accessToken,
+        data.refreshToken
       );
     } catch (err) {
       console.log("Error: ", err);
