@@ -6,9 +6,13 @@ export type User = {
 };
 
 export type ResponseDto = {
-  AccessToken: string;
-  RefreshToken: string;
+  accessToken: string;
+  refreshToken: string;
   ExpiresIn: number;
   User: User;
   Role: string;
+};
+
+export type RefreshTokenDto = {
+  RefreshToken: string | null;
 };

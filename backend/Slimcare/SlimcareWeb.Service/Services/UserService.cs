@@ -199,6 +199,11 @@ namespace SlimcareWeb.Service.Services
             }
             var accessToken = _jwtTokenService.GenerateAccessToken(user);
             var (rtPlain, rtEntity) = _jwtTokenService.GenerateRefreshToken(user.Id, TimeSpan.FromDays(_jwtSettings.RefreshTokenLifetimeDays));
+            var oldRefreshTokens = await _refreshTokenService.FindRefreshTokenByUserId(user.Id);
+            if (oldRefreshTokens != null)
+            {
+                await _refreshTokenService.RevokeAsync(user.Id);
+            }
             await _refreshTokenService.AddAsync(rtEntity);
             var response = new ResponseDto(accessToken, rtPlain, _jwtSettings.ExpirationInMinutes, user, Role.USER.ToString());
             return response;

@@ -1,7 +1,7 @@
-
-const ACCESS_KEY = import.meta.env.ACCESS_KEY;
-const REFRESH_KEY = import.meta.env.REFRESH_KEY;
-
+const ACCESS_KEY = import.meta.env
+  .VITE_ACCESS_KEY;
+const REFRESH_KEY = import.meta.env
+  .VITE_REFRESH_KEY;
 
 export function setTokens(
   accessToken: string,

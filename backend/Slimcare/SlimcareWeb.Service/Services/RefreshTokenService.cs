@@ -34,6 +34,21 @@ namespace SlimcareWeb.Service.Services
             }
             return null;
         }
+        public async Task<RefreshToken?> FindRefreshTokenByUserId(int userId)
+        {
+            return await _refreshTokenRepository.FindRefreshTokenByUserId(userId);
+        }
+
+        public async Task RevokeAsync(int userId)
+        {
+            var refreshToken = await FindRefreshTokenByUserId(userId);
+            if (refreshToken != null)
+            {
+                refreshToken.RevokeAt = DateTime.UtcNow;
+                await _refreshTokenRepository.UpdateAsync(refreshToken);
+                await _refreshTokenRepository.SoftDeleteAsync(refreshToken.Id);
+            }
+        }
 
         public async Task RevokeAsync(string plainToken)
         {
