@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../../redux/store";
 import { loginSuccess } from "../../../redux/authSlice";
 
+
 type GsiCredential = { credential: string };
 
 export default function GoogleLoginButton() {

@@ -17,5 +17,6 @@ namespace SlimcareWeb.Service.Dtos.Product
         public int Stock { get; set; }
         public string Desciption { get; set; }
         public int CategoryId { get; set; }
+        public string Img { get; set; }
     }
 }

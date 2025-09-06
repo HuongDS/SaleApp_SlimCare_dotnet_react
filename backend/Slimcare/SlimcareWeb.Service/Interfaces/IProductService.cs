@@ -17,6 +17,7 @@ namespace SlimcareWeb.Service.Interfaces
         Task<Product?> GetByIdAsync(int id);
         Task<IEnumerable<Product>> GetProductsWithQuantityAsync(int quantity);
         Task<PagedResult<Product>> GetProductWithPaginationAsync(int pageindex, int pageSize);
+
         Task<Product> SoftDeleteAsync(int id);
         Task<ProductViewDto> UpdateAsync(UpdateProductDto data);
     }

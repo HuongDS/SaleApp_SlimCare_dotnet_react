@@ -53,6 +53,8 @@
         /// </summary>
         public DateTime Delete_At { get; set; }
 
+        public string Img { get; set; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Product"/> class.
         /// </summary>
@@ -72,7 +74,7 @@
         /// <param name="category">The category<see cref="Category"/></param>
         /// <param name="orderDetails">The orderDetails<see cref="List{OrderDetails}"/></param>
         /// <param name="delete_At">The delete_At<see cref="DateTime"/></param>
-        public Product(int id, string name, double price, int stock, string desciption, int categoryId, Category category, List<OrderDetails> orderDetails, DateTime delete_At)
+        public Product(int id, string name, double price, int stock, string desciption, int categoryId, Category category, List<OrderDetails> orderDetails, DateTime delete_At, string img)
         {
             Id = id;
             Name = name;
@@ -83,6 +85,7 @@
             Category = category;
             OrderDetails = orderDetails;
             Delete_At = delete_At;
+            Img = img;
         }
     }
 }
