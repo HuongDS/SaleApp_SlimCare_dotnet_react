@@ -55,6 +55,8 @@ namespace SlimcareWeb.Service.Services
             var refreshToken = await FindValidAsync(plainToken);
             if (refreshToken != null)
             {
+                refreshToken.RevokeAt = DateTime.UtcNow;
+                await _refreshTokenRepository.UpdateAsync(refreshToken);
                 await _refreshTokenRepository.SoftDeleteAsync(refreshToken.Id);
             }
         }
