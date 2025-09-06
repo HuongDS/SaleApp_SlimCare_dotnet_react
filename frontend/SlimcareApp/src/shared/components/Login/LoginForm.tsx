@@ -10,7 +10,7 @@ import {
 import {
   loginWithPassword,
   saveTokens,
-} from "../../../services/api/authService";
+} from "../../../services/authService";
 import type { UserLoginDto } from "../../../model/LoginModel";
 import GoogleLoginButton from "../Home/GoogleLoginButton";
 import { useDispatch } from "react-redux";

@@ -19,5 +19,9 @@ namespace SlimcareWeb.DataAccess.Repositories
             var check = await _dbContext.Products.AnyAsync(p => p.Name.ToLower().Equals(productName.ToLower()));
             return check;
         }
+        public async Task<IEnumerable<Product>> GetProductsWithQuantity(int quantity)
+        {
+            return await _dbSet.OrderBy(p => p.Stock).Take(quantity).ToListAsync();
+        }
     }
 }

@@ -1,8 +1,10 @@
 import { api } from "../api/api";
+
 import type {
   PageResult,
   Product,
 } from "../model/ProductModel";
+
 
 export async function getProductsWithQuantity(
   quantity: number
@@ -25,3 +27,4 @@ export async function getProductsWithPagination({
   );
   return res.data;
 }
+
