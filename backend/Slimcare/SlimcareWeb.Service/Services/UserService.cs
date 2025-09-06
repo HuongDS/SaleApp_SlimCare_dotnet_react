@@ -199,6 +199,7 @@ namespace SlimcareWeb.Service.Services
                 await _refreshTokenService.RevokeAsync(user.Id);
             }
             await _refreshTokenService.AddAsync(rtEntity);
+            await _refreshTokenService.AddAsync(rtEntity);
             var resUser = _mapper.Map<ResponseUserDto>(user);
             var response = new ResponseDto(accessToken, rtPlain, _jwtSettings.ExpirationInMinutes, resUser, Role.USER.ToString());
             return response;

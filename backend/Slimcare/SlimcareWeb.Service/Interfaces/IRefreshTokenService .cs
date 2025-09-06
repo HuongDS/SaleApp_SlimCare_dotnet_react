@@ -17,5 +17,7 @@ namespace SlimcareWeb.Service.Interfaces
         Task RevokeAsync(string plainToken);
         Task<int> SoftDeleteAsync(int id);
         Task<int> AddAsync(RefreshToken refreshToken);
+        Task<RefreshToken?> FindRefreshTokenByUserId(int userId);
+        Task RevokeAsync(int userId);
     }
 }
