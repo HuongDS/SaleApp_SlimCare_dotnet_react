@@ -55,8 +55,6 @@ namespace SlimcareWeb.Service.Services
             var refreshToken = await FindValidAsync(plainToken);
             if (refreshToken != null)
             {
-                refreshToken.RevokeAt = DateTime.UtcNow;
-                await _refreshTokenRepository.UpdateAsync(refreshToken);
                 await _refreshTokenRepository.SoftDeleteAsync(refreshToken.Id);
             }
         }
@@ -77,10 +75,6 @@ namespace SlimcareWeb.Service.Services
         public async Task<int> AddAsync(RefreshToken refreshToken)
         {
             return await _refreshTokenRepository.AddAsync(refreshToken);
-        }
-        public async Task<RefreshToken?> FindRefreshTokenByUserId(int id)
-        {
-            return await _refreshTokenRepository.FindByUserIdAsync(id);
         }
     }
 }

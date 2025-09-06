@@ -1,15 +1,16 @@
 export type User = {
   Id: number;
-  Username: string;
+  username: string;
   Email: string;
   Role: string;
+  Password: string;
 };
 
 export type ResponseDto = {
   accessToken: string;
   refreshToken: string;
   ExpiresIn: number;
-  User: User;
+  user: User;
   Role: string;
 };
 

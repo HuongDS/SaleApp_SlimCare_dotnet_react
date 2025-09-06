@@ -14,5 +14,7 @@ namespace SlimcareWeb.DataAccess.Interface
         Task<T?> GetByIdAsync(int id);
         Task<IEnumerable<T>> GetAllAsync();
         Task<int> DeleteAsync(int id);
+        Task<IEnumerable<T>> GetWithPagination(int pageIndex, int pageSize);
+        Task<int> CountAllAsync();
     }
 }

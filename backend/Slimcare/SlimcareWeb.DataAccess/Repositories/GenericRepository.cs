@@ -55,6 +55,11 @@ namespace SlimcareWeb.DataAccess.Repositories
             return await _dbSet.Where(x => x.Delete_At == DateTime.MinValue).ToListAsync();
         }
 
+        public async Task<IEnumerable<T>> GetWithPagination(int pageIndex, int pageSize)
+        {
+            return await _dbSet.Skip((pageIndex - 1) * pageSize).Take(pageSize).Where(x => x.Delete_At == DateTime.MinValue).ToListAsync();
+        }
+
         public async Task<T?> GetByIdAsync(int id)
         {
             return await _dbSet.FirstOrDefaultAsync(x => x.Delete_At == DateTime.MinValue && x.Id == id);
@@ -65,6 +70,10 @@ namespace SlimcareWeb.DataAccess.Repositories
             _dbSet.Update(entity);
             await _dbContext.SaveChangesAsync();
             return entity.Id;
+        }
+        public async Task<int> CountAllAsync()
+        {
+            return await _dbSet.CountAsync(x => x.Delete_At == DateTime.MinValue);
         }
     }
 }

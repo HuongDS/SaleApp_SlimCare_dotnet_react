@@ -31,6 +31,17 @@ namespace SlimcareApp.Controllers
             }
             return Ok(product);
         }
+        [HttpGet("/GetProductWithQuantity/{quantity}")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProductsWithQuantityAsync(int quantity)
+        {
+            return Ok(await _productService.GetProductsWithQuantityAsync(quantity));
+        }
+        [HttpGet("/GetProducts/{pageIndex}/{pageSize}")]
+        public async Task<ActionResult> GetProductWithPaginationAsync(int pageIndex, int pageSize)
+        {
+            var pagedResult = await _productService.GetProductWithPaginationAsync(pageIndex, pageSize);
+            return Ok(pagedResult);
+        }
         [HttpPost("/AddProduct")]
         public async Task<ActionResult<ProductViewDto>> AddAsync(CreateProductDto data)
         {

@@ -74,7 +74,8 @@ namespace SlimcareWeb.Tests
             var rtPlain = "validRefreshToken";
             _jwtTokenService.Setup(j => j.GenerateRefreshToken(expectedUser.Id, TimeSpan.FromDays(14))).Returns((rtPlain, refreshToken));
             _refreshTokenService.Setup(r => r.AddAsync(It.IsAny<RefreshToken>())).ReturnsAsync(1);
-            var expectedResponse = new ResponseDto(accessToken, rtPlain, 15, expectedUser, Role.USER.ToString());
+            var useResponse = new ResponseUserDto(expectedUser.Id, expectedUser.Username, expectedUser.Email, expectedUser.Role.ToString());
+            var expectedResponse = new ResponseDto(accessToken, rtPlain, 15, useResponse, Role.USER.ToString());
             // Act  
             var response = await _userService.LoginAsync(input);
             // Assert  
