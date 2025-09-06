@@ -82,5 +82,10 @@ namespace SlimcareWeb.Service.Services
                 currentPage = pageindex
             };
         }
+
+        public async Task<IEnumerable<Product>> GetProductsWithQuantityAsync(int quantity)
+        {
+            return await _productRepository.GetProductsWithQuantity(quantity);
+        }
     }
 }

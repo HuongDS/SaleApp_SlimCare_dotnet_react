@@ -36,7 +36,7 @@ namespace SlimcareApp.Controllers
         {
             return Ok(await _productService.GetProductsWithQuantityAsync(quantity));
         }
-        [HttpGet("/GetProducts/{pageIndex}/{pageSize}")]
+        [HttpGet("/GetProducts/{pageIndex}/{pageSize}/{query}")]
         public async Task<ActionResult> GetProductWithPaginationAsync(int pageIndex, int pageSize)
         {
             var pagedResult = await _productService.GetProductWithPaginationAsync(pageIndex, pageSize);
