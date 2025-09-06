@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using SlimcareWeb.DataAccess.Entities;
 using SlimcareWeb.DataAccess.Interface;
+using SlimcareWeb.Service.Dtos.Others;
 using SlimcareWeb.Service.Dtos.Product;
+using SlimcareWeb.Service.Helpers;
 using SlimcareWeb.Service.Interfaces;
 
 namespace SlimcareWeb.Service.Services
@@ -68,6 +70,17 @@ namespace SlimcareWeb.Service.Services
             }
             await _productRepository.SoftDeleteAsync(id);
             return product;
+        }
+        public async Task<PagedResult<Product>> GetProductWithPaginationAsync(int pageindex, int pageSize)
+        {
+            var data = await _productRepository.GetWithPagination(pageindex, pageSize);
+            return new PagedResult<Product>
+            {
+                items = data,
+                totalCount = await _productRepository.CountAllAsync(),
+                pageSize = pageSize,
+                currentPage = pageindex
+            };
         }
     }
 }
